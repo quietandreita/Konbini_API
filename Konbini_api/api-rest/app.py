@@ -126,10 +126,31 @@ def get_producto(id):
 
 @app.route("/productos", methods=["POST"])
 def add_producto():
-    nuevo = Producto(**request.json)
-    db.session.add(nuevo)
-    db.session.commit()
-    return producto_schema.jsonify(nuevo), 201
+    data = request.get_json()
+    try:
+        nuevo = Producto(
+            nombre=data["nombre"],
+            precio=data["precio"],
+            existencias=data["existencias"],
+            estatus=data.get("estatus", True),
+            descripcion=data.get("descripcion", ""),
+            id_Categoria=data["id_Categoria"] 
+        )
+        db.session.add(nuevo)
+        db.session.commit()
+        return jsonify({"message": "Producto creado", "producto": {
+            "id_Producto": nuevo.id_Producto,
+            "nombre": nuevo.nombre,
+            "precio": nuevo.precio,
+            "existencias": nuevo.existencias,
+            "estatus": nuevo.estatus,
+            "descripcion": nuevo.descripcion,
+            "id_Categoria": nuevo.id_Categoria
+        }}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/productos/<int:id>", methods=["PUT"])
 def update_producto(id):
