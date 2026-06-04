@@ -1,7 +1,7 @@
 # Documentación del Backend
 
 ## 1. Introducción
-Este proyecto implementa una API REST con CRUD completo para 5 tablas de una base de datos.  
+Este proyecto implementa una API REST con CRUD completo para las tablas de una base de datos.  
 El backend está diseñado para ser consumido por un frontend en Angular.
 
 ---
