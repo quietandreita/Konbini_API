@@ -44,7 +44,7 @@ def register():
         nuevo = Usuario(
             nombre=data["nombre"],
             correo=data["correo"],
-            contrasena=generate_password_hash(data["contrasena"]),  # ✅ guarda encriptada
+            contrasena=generate_password_hash(data["contrasena"]),  # guarda encriptada
             tipo="Cliente",
             estatus=True
         )
